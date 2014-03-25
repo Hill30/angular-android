@@ -1,16 +1,8 @@
 package com.hill30.android.angular;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.webkit.ConsoleMessage;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -34,8 +26,13 @@ public class MainActivity extends ActionBarActivity {
         public void run() {
             while(needUpdateWatch){
                 try {
-                    String date = new SimpleDateFormat("HH:mm:ss").format(new Date());
-                    webView.loadUrl("javascript:WebApi.NotificationService.updateWatch(\'" + date + "\')");
+                    final String date = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            webView.loadUrl("javascript:WebApi.NotificationService.updateWatch(\'" + date + "\')");
+                        }
+                    });
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
