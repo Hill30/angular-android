@@ -4,8 +4,8 @@ angular.module('application').controller('sampleWatchController', [
      $scope.time = '--:--:--'
 
      $scope.$on('updateWatch', function(event, time) {
-                    console.log(time);
                     $scope.time = time;
+                    $scope.$apply();
                 }
             );
 

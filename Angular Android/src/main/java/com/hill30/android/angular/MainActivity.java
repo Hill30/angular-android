@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            webView.loadUrl("javascript:WebApi.NotificationService.updateWatch(\'" + date + "\')");
+                            webView.loadUrl("javascript:if (WebApi.NotificationService) WebApi.NotificationService.updateWatch(\'" + date + "\')");
                         }
                     });
                     Thread.sleep(1000);
@@ -49,45 +49,16 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         webView = (WebView) findViewById(R.id.webView);
+
+        // todo: is it really necessary?
         webView.requestFocus();
 
         webView.getSettings().setJavaScriptEnabled(true);
 
-        webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-            }
+        // todo: call this method only for API level >= 16
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
 
-            @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                Log.d(TAG, "Console: " + consoleMessage.message());
-                return super.onConsoleMessage(consoleMessage);
-            }
-
-            @Override
-            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                Log.d(TAG, "Console: " + message);
-                return super.onJsAlert(view, url, message, result);
-            }
-        });
-
-        webView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onLoadResource(WebView view, String url) {
-                Log.d(TAG, "loading: " + url);
-                super.onLoadResource(view, url);
-            }
-
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                Log.d(TAG, "onReceivedError: " + description);
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.d(TAG, "shouldOverrideUrlLoading" + url);
-                return true;
-            }
-        });
+        webView.addJavascriptInterface(new MVCControllers(), "WebApi");
 
     }
 
