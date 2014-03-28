@@ -1,9 +1,3 @@
-if (!window.WebApi)
-    window.WebApi = {
-        get: function(url) {
-
-        }
-    }
 
 angular.module('application', ['ngResource', 'ngRoute'])
 .config(['$provide', '$httpBackendProvider',

@@ -1,5 +1,5 @@
-<div ng-controller='sampleWatchController'>
-    Hiii
-    <div>12:45:25</div>
-
+<div class="watch" ng-controller="todosController">
+    <div ng-repeat="item in records">Hi, {{item.description}}</div>
+    <br>
+    <button class="btn" ng-click="showWatch()">Show Watch</button>
 </div>

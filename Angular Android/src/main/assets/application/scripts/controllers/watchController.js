@@ -1,4 +1,4 @@
-angular.module('application').controller('sampleWatchController', [
+angular.module('application').controller('watchController', [
     '$scope', '$log', '$resource', '$location', 'NotificationService',  function($scope, console, $resource, $location) {
 
      $scope.time = '--:--:--'
@@ -8,5 +8,9 @@ angular.module('application').controller('sampleWatchController', [
                     $scope.$apply();
                 }
             );
+
+     $scope.showTodo = function() {
+        $location.path("todos");
+     }
 
 }])
