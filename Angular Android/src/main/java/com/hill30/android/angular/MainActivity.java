@@ -1,5 +1,6 @@
 package com.hill30.android.angular;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -56,7 +57,9 @@ public class MainActivity extends ActionBarActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         // todo: call this method only for API level >= 16
-        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        if(Build.VERSION.SDK_INT >= 16){
+            webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        }
 
         webView.addJavascriptInterface(new MVCControllers(), "WebApi");
 
