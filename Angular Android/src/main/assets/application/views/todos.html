@@ -20,57 +20,34 @@
 
         <div class="tab-content">
 
-
             <div class="tab-pane active">
 
                 <div class="todos-wrap">
 
-
-                    <div class="todos-add">
-
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-
                     <div class="todos-list">
                         <ul>
-                            <!--<li ng-repeat="item in records">Hi, {{item.description}}</li>-->
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
-                            <li>todo test</li>
+
+                            <li ng-repeat="item in records">
+                                <div class="input-group">
+                                    <input type="text" ng-show="isSelected($index)" class="form-control" ng-model="item.description">
+                                    <div ng-hide="isSelected($index)" ng-click="select($index)">{{item.description}}</div>
+                                    <span class="input-group-btn" ng-show="isSelected($index)">
+                                        <button class="btn btn-default" type="button" ng-click="save($index)">V</button>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="delete($index)">-</button>
+                                    </span>
+                                    <span class="input-group-btn" ng-hide="isSelected($index)">
+                                        <button class="btn btn-default" type="button" ng-click="add($index)">+</button>
+                                    </span>
+                                </div>
+                            </li>
 
                         </ul>
 
-
-
                     </div>
 
-
-
-
                 </div>
-
-
 
             </div>
 

@@ -17,11 +17,12 @@ public class MVCControllers {
     @JavascriptInterface
     public String get(String url) throws Exception {
         String[] tokens = url.split("/");
-        if (tokens[0].equals("todos")) {
+        if (tokens[0].equals("get")) {
             JSONArray result = new JSONArray();
-            result.put(new JSONObject("{description:'The first one'}"));
+            if (todos.size() < 1)
+                todos.add(new JSONObject("{description:'The first one'}"));
             for (JSONObject record : todos) {
-                result.put(record.toString());
+                result.put(record);
             }
             return result.toString();
         }
@@ -36,12 +37,12 @@ public class MVCControllers {
     @JavascriptInterface
     public String post(String url, String post) throws Exception {
         String[] tokens = url.split("/");
-//        if (tokens[0].equals("activity")) {
-//            if (tokens.length < 2)
-//                throw new Exception("Invalid REST request: activityRecord id missing");
-//            storageConnection.save(Integer.parseInt(tokens[1]), post);
-//            return post;
-//        }
+        if (tokens[0].equals("update")) {
+            if (tokens.length < 2)
+                throw new Exception("Invalid REST request: todo id missing");
+            todos.set(Integer.parseInt(tokens[1]), new JSONObject(post));
+            return post;
+        }
         throw new Exception("Invalid REST request: unknown controller '" + tokens[0] + "'");
     }
 }
