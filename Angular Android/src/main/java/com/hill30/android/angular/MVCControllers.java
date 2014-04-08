@@ -17,7 +17,7 @@ public class MVCControllers {
     @JavascriptInterface
     public String get(String url) throws Exception {
         String[] tokens = url.split("/");
-        if (tokens[0].equals("get")) {
+        if (tokens[0].equals("list")) {
             JSONArray result = new JSONArray();
             if (todos.size() < 1)
                 todos.add(new JSONObject("{description:'The first one'}"));
@@ -41,6 +41,19 @@ public class MVCControllers {
             if (tokens.length < 2)
                 throw new Exception("Invalid REST request: todo id missing");
             todos.set(Integer.parseInt(tokens[1]), new JSONObject(post));
+            return post;
+        }
+        if (tokens[0].equals("delete")) {
+            if (tokens.length < 2)
+                throw new Exception("Invalid REST request: todo id missing");
+            todos.remove(Integer.parseInt(tokens[1]));
+            return post;
+        }
+        if (tokens[0].equals("add")) {
+            if (tokens.length < 2)
+                todos.add(new JSONObject(post));
+            else
+                todos.add(Integer.parseInt(tokens[1])+1, new JSONObject(post));
             return post;
         }
         throw new Exception("Invalid REST request: unknown controller '" + tokens[0] + "'");

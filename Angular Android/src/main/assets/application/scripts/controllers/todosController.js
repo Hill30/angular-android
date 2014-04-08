@@ -1,9 +1,9 @@
 angular.module('application').controller('todosController', [
     '$scope', '$log', '$resource', '$location',  function($scope, console, $resource, $location) {
 
-     var Records = $resource('api/get');
+     var Records = $resource('api/list');
 
-     var Update = $resource('api/update/:index')
+     var Update = $resource('api/:operation/:index')
 
      var current = -1;
 
@@ -13,12 +13,38 @@ angular.module('application').controller('todosController', [
         return index === current;
      };
 
+     $scope.current = function() {return current;}
+
      $scope.select = function(index) {
         current = index;
      };
 
-     $scope.save = function(index) {
-        Update.save({index:index}, $scope.records[index]);
+     preventBubble = function($event) {
+        if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;
+     }
+
+     $scope.save = function(index, $event) {
+        preventBubble($event);
+        Update.save({operation:'update', index:index}, $scope.records[index],
+            function() {
+                current = -1;
+            });
+     }
+
+     $scope.add = function(index, $event) {
+        preventBubble($event);
+        $scope.records.splice(index+1, 0, {description:''});
+        Update.save({operation:'add', index:index}, $scope.records[index+1]);
+        current = index+1;
+     }
+
+     $scope.delete = function(index, $event) {
+        preventBubble($event);
+        $scope.records.splice(index, 1);
+        Update.save({operation:'delete', index:index}, $scope.records[index+1]);
         current = -1;
      }
 

@@ -28,17 +28,17 @@
                         <ul>
 
                             <li ng-repeat="item in records">
-                                <div class="input-group">
+                                <div class="input-group" ng-click="select($index)">
                                     <input type="text" ng-show="isSelected($index)" class="form-control" ng-model="item.description">
-                                    <div ng-hide="isSelected($index)" ng-click="select($index)">{{item.description}}</div>
+                                    <div ng-hide="isSelected($index)">{{item.description}}</div>
                                     <span class="input-group-btn" ng-show="isSelected($index)">
-                                        <button class="btn btn-default" type="button" ng-click="save($index)">V</button>
+                                        <button class="btn btn-default" type="button" ng-click="save($index, $event)">V</button>
                                     </span>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" ng-click="delete($index)">-</button>
+                                        <button class="btn btn-default" type="button" ng-click="delete($index, $event)">-</button>
                                     </span>
                                     <span class="input-group-btn" ng-hide="isSelected($index)">
-                                        <button class="btn btn-default" type="button" ng-click="add($index)">+</button>
+                                        <button class="btn btn-default" type="button" ng-click="add($index, $event)">+</button>
                                     </span>
                                 </div>
                             </li>
