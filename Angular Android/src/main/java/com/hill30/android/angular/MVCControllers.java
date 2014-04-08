@@ -19,8 +19,8 @@ public class MVCControllers {
         String[] tokens = url.split("/");
         if (tokens[0].equals("list")) {
             JSONArray result = new JSONArray();
-            if (todos.size() < 1)
-                todos.add(new JSONObject("{description:'The first one'}"));
+//            if (todos.size() < 1)
+//                todos.add(new JSONObject("{description:'The first one'}"));
             for (JSONObject record : todos) {
                 result.put(record);
             }

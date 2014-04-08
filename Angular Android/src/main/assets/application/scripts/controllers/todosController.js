@@ -13,7 +13,7 @@ angular.module('application').controller('todosController', [
         return index === current;
      };
 
-     $scope.current = function() {return current;}
+     //$scope.current = function() {return current;}
 
      $scope.select = function(index) {
         current = index;
@@ -26,26 +26,40 @@ angular.module('application').controller('todosController', [
         $event.returnValue = false;
      }
 
+     $scope.newItem = {}
+
      $scope.save = function(index, $event) {
         preventBubble($event);
-        Update.save({operation:'update', index:index}, $scope.records[index],
-            function() {
-                current = -1;
-            });
+        if (index === -1)
+            Update.save({operation:'add', index:index}, $scope.newItem,
+                function() {
+                    $scope.records.push($scope.newItem);
+                    current = -1;
+                });
+        else
+            Update.save({operation:'update', index:index}, $scope.records[index],
+                function() {
+                    current = -1;
+                });
      }
 
      $scope.add = function(index, $event) {
         preventBubble($event);
-        $scope.records.splice(index+1, 0, {description:''});
-        Update.save({operation:'add', index:index}, $scope.records[index+1]);
-        current = index+1;
+        var newRecord = {description:''};
+        Update.save({operation:'add', index:index}, newRecord,
+            function() {
+                $scope.records.splice(index+1, 0, newRecord);
+                current = index+1;
+            });
      }
 
      $scope.delete = function(index, $event) {
         preventBubble($event);
-        $scope.records.splice(index, 1);
-        Update.save({operation:'delete', index:index}, $scope.records[index+1]);
-        current = -1;
+        Update.save({operation:'delete', index:index}, $scope.records[index+1],
+            function() {
+                $scope.records.splice(index, 1);
+                current = -1;
+            });
      }
 
      $scope.showWatch = function() {

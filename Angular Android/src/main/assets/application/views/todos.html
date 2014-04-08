@@ -27,6 +27,15 @@
                     <div class="todos-list">
                         <ul>
 
+                            <li ng-hide="records.length">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="newItem.description">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ng-click="save(-1, $event)">V</button>
+                                    </span>
+                                </div>
+                            </li>
+
                             <li ng-repeat="item in records">
                                 <div class="input-group" ng-click="select($index)">
                                     <input type="text" ng-show="isSelected($index)" class="form-control" ng-model="item.description">
