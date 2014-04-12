@@ -9,6 +9,7 @@ module.exports = (grunt) ->
 					livereload: false
 					keepalive: true
 					watch: false
+					middleware: require './middleware'
 
 	grunt.loadNpmTasks 'grunt-contrib-connect'
 	grunt.registerTask 'default', ['connect']
