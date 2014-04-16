@@ -60,7 +60,6 @@ body {
 
 .nav-wrap .nav-tabs  {
     margin: 10px 10px 0 10px ;
-
 }
 
 .nav-wrap .nav-tabs > li {
@@ -151,6 +150,17 @@ body {
     /*!watch-container*/
 
     /*todos*/
+    .todos-wrap .btn {
+        height: 34px;
+    }
+
+    .todos-wrap .btn .glyphicon {
+        opacity: .4;
+    }
+
+    .todos-wrap .btn:hover .glyphicon {
+        opacity: .8;
+    }
 
         /*todos-add*/
         .todos-add {
@@ -171,11 +181,12 @@ body {
         /*todos-list*/
         .todos-list {
             position: fixed;
-            top: 110px;
+            top: 60px;
             left: 0;
             right: 0;
             bottom: 0;
-            overflow: auto;        }
+            overflow: auto;
+        }
 
         .todos-list ul {
             list-style: none;
@@ -185,26 +196,39 @@ body {
 
         .todos-list ul li {
             line-height: 1.2em;
-            padding: 7px 0 7px 10px;
+            padding: 4px 0 4px 10px;
             position: relative;
-            border-top: 1px #cbcbcb dotted;
+            border-bottom: 1px #cbcbcb dotted;
         }
 
         .todos-list ul li:before {
             content: "";
             position: absolute;
             left: 0;
-            top: 13px;
+            top: 18px;
             border: 3px transparent solid;
             border-left-color: #a9a9a9
         }
 
-        .todos-list ul li:first-child {
-            margin-top: 0;
-            border-top: none;
+        .todos-list ul li.item-main {
+            border-bottom: none;
         }
 
+        .todos-list ul li.item-main:before {
+            display: none;
+        }
 
+        .todos-list .form-control-static {
+            padding: 9px 0 5px 14px;
+        }
+
+        .todos-list .input-group-btn .btn:first-child + .btn {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .todos-list .form-control-static.ng-hide + .input-group-btn .btn:first-child + .btn {
+            border-radius: 0 4px 4px 0;
+        }
         /*!todos-list*/
 
 
