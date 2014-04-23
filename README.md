@@ -15,8 +15,10 @@ To run the android application:
 -------------------------------
 
 1. Install [Android Studio v0.5.*](http://tools.android.com/recent/androidstudio053released)
-2. Clone the project
-3. Open the project in the studio and run it
+2. Make sure you have at least Android SDK Build Tools 19.0.1 installed. (otherwise update it via SDK Manager)
+3. Clone the project
+4. Import folder with project into Android Studio
+5. Run the project
  
 To run the angular application directly:
 ----------------------------------------
